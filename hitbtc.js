@@ -98,6 +98,7 @@ async function getTrades(){
                 }
             }
         }
+        btcVol = 0;
         
         for (var g in gos){
 
@@ -106,6 +107,17 @@ async function getTrades(){
           symbol: symbol,
         })).trades
         for (var t in trades){
+            console.log(trades[t])
+            if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'USD'){
+                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) * btcs['USD'])
+            }
+            else  if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'ETH'){
+                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) * btcs['ETH'])
+            }
+            else {
+                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)))
+            }
+
             if (!tradeids.includes(trades[t].clientOrderId + trades[t].timestamp.toString())){
                 tradeids.push(trades[t].clientOrderId + trades[t].timestamp.toString());
             
@@ -115,6 +127,7 @@ async function getTrades(){
     }
 }
 }
+let btcVol = 0;
 let numOrders = 0;
 setTimeout(function(){
 
@@ -190,7 +203,8 @@ async function doPost(req, res) {
             buyOrders: buyOrders,
             sellOrders: sellOrders,
             balances: bals3,
-            balances2 : bals4
+            balances2 : bals4, 
+            btcVol: btcVol
         });
 
     } else {
