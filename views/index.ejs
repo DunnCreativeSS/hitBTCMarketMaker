@@ -227,7 +227,7 @@ The goal of this bot isn't to profit: it's to show off that there would be profi
             $('#numTrades').html(jsondata.trades)
             $('#balances').html('');
             for (var b in jsondata.balances){
-            $('#balances').append('<br>' + b + ": " + jsondata.balances[b])
+            $('#balances').append('<br>' + b + ": free: " + jsondata.balances[b] + " on orders: " + jsondata.balances2[b])
             }
             $('#buyOrders').html(jsondata.buyOrders)
             $('#sellOrders').html(jsondata.sellOrders)

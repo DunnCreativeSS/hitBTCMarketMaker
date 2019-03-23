@@ -59,12 +59,15 @@ let trades2 = []
 let totalbefore = 0;
 let tradeids = []
 let bals3 = {}
+let bals4 = {}
 async function getTrades(){
     bals3 = {}
+    bals4 = {}
     balances = (await restClient.getMyBalance()).balance
     for (var b in balances) {
         if (balances[b].cash > 0 || balances[b].reserved > 0){
-        bals3[b] = parseFloat(balances[b].cash) + parseFloat(balances[b].reserved)
+        bals3[b] = parseFloat(balances[b].cash)
+        bals4[b] = parseFloat(balances[b].reserved)
     }
     }
     let gos = {}
@@ -186,7 +189,8 @@ async function doPost(req, res) {
             orders: numOrders,
             buyOrders: buyOrders,
             sellOrders: sellOrders,
-            balances: bals3
+            balances: bals3,
+            balances2 : bals4
         });
 
     } else {
