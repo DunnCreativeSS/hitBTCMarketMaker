@@ -55,7 +55,7 @@ To use:
 5. Clone this repo, cd into directory
 
 
-6. Run npm i hitbtc-api express request ejs 
+6. Run npm i hitbtc-api express request ejs body-parser
 
 
 7. Run node hitbtc.js

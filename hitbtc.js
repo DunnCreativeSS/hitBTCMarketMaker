@@ -114,7 +114,18 @@ setInterval(function(){
 }, 60 * 1001)
 async function doPost(req, res) {
     numOrders = 0;
-    numOrders  = (await restClient.getMyActiveOrders()).orders.length
+    orders  = (await restClient.getMyActiveOrders()).orders
+    numOrders = orders.length
+    let buyOrders = 0;
+    let sellOrders = 0;
+    for (var o in orders){
+        if (orders[o].side == 'buy'){
+            buyOrders++;
+        }
+        else {
+            sellOrders++;
+        }
+    }
     
     total2 = 0;
     let bals2 = {}
@@ -164,7 +175,9 @@ async function doPost(req, res) {
             eth: ethtotal,
             trades2: trades2,
             trades: trades2.length,
-            orders: numOrders
+            orders: numOrders,
+            buyOrders: buyOrders,
+            sellOrders: sellOrders
         });
 
     } else {
