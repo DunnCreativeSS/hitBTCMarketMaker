@@ -199,7 +199,7 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-The goal of this bot isn't to profit: it's to show off that there would be profits if we eliminated the 0.1% trading fee, or effect a market maker rebate of -0.01% or up to -0.1%. Imagine this chart as you're watching it without the steep falls after some of the green (buying) lines: those drops are fees. Imagine it with bigger climbs on some of the red (selling) lines: sales without fees. <a href="https://medium.com/@jarettrsdunn/binance-hitbtc-etc-market-maker-pitch-how-to-get-rich-online-2988c1d328ac">Read More Here.</a> <br> <br> # current orders: <div id = 'numOrders'></div> Buy orders: <div id = 'buyOrders'></div> Sell orders: <div id = 'sellOrders'></div>  <br> # recent trades: <div id = 'numTrades'></div><br>All balances: <div id = "balances"></div>btcVol in recent memory: <div id = 'btcVol'></div>
+The goal of this bot isn't to profit: it's to show off that there would be profits if we eliminated the 0.1% trading fee, or effect a market maker rebate of -0.01% or up to -0.1%. Imagine this chart as you're watching it without the steep falls after some of the green (buying) lines: those drops are fees. Imagine it with bigger climbs on some of the red (selling) lines: sales without fees. <a href="https://medium.com/@jarettrsdunn/binance-hitbtc-etc-market-maker-pitch-how-to-get-rich-online-2988c1d328ac">Read More Here.</a> <br> <br> # current orders: <div id = 'numOrders'></div> Buy orders: <div id = 'buyOrders'></div> Sell orders: <div id = 'sellOrders'></div>  <br> # recent trades: <div id = 'numTrades'></div><br>All balances: <div id = "balances"></div><br>approx (based on current rates) btcVol in recent memory (note that it takes a few seconds to update fully every 14 seconds when it tries to update): <div id = 'btcVol'></div>
 <div id="container0" style="height: 500px; min-width: 310px"></div>
 <div id="container" style="height: 500px; min-width: 310px"></div>
 <div id="container3" style="height: 500px; min-width: 310px"></div>
@@ -241,12 +241,14 @@ The goal of this bot isn't to profit: it's to show off that there would be profi
                 diffusd.push([d, jsondata.usddiff])
                 diffeth.push([d, jsondata.ethdiff])
                 diffbtc.push([d, jsondata.btcdiff])
+                refdiff.push([d, jsondata.refdiff])
                 chart2.series[0].setData(btc);
                 chart3.series[0].setData(eth);
 				chart.series[0].setData(total);
                 chart0.series[0].setData(diffusd);
                 chart0.series[1].setData(diffeth);
                 chart0.series[2].setData(diffbtc);
+                chart0.series[4].setData(refdiff);
                 let avg = (jsondata.usddiff + jsondata.ethdiff + jsondata.btcdiff) / 3
                 diffavg.push([d, avg])
                 chart0.series[3].setData(diffavg);
@@ -559,6 +561,11 @@ if (jsondata.trades2[p].time > max){
                 name: 'avg pnl',
                 data: trade,
                 color: '#000000',
+                lineWidth: 2
+            }, {
+                name: 'reference btc diff',
+                data: trade,
+                color: '#000F0F',
                 lineWidth: 2
             }
         ]

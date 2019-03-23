@@ -53,6 +53,7 @@ let total2 = 0;
 let btcstart = 0.006717910081570958;
 let ethstart = 0.19635497644031719;
 let usdstart = 26.836045088873048;
+let btcref = 4004.93;
 let ethtotal = 0;
 let btctotal = 0;
 let trades2 = []
@@ -181,8 +182,8 @@ async function doPost(req, res) {
                }
     
     }
-    if (true){
-
+        if (true){
+            let refdiff = 100* (-1 * (1 - (btcs2['BTC'] / btcref)));
     let usddiff = 100* (-1 * (1 - (total2 / usdstart)));
     btctotal = (((total2 / btcs['BTC'])));
     ethtotal = (((total2 / btcs2['ETH'])));
@@ -205,7 +206,8 @@ async function doPost(req, res) {
             sellOrders: sellOrders,
             balances: bals3,
             balances2 : bals4, 
-            btcVol: btcVol
+            btcVol: btcVol, 
+            refdiff: refdiff
         });
 
     } else {
