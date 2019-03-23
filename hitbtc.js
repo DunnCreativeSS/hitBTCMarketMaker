@@ -107,16 +107,17 @@ async function getTrades(){
           symbol: symbol,
         })).trades
         for (var t in trades){
-            console.log(trades[t])
+            if (trades[t].symbol != 'ETHBTC' && trades[t].symbol != 'USDBTC' && trades[t].symbol != 'BTCUSD'){
             if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'USD'){
-                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) * btcs['USD'])
+                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) / btcs2['BTC'])
             }
             else  if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'ETH'){
-                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) * btcs['ETH'])
+                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) / btcs2['ETH'])
             }
-            else {
+            else if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'BTC'){
                 btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)))
             }
+        }
 
             if (!tradeids.includes(trades[t].clientOrderId + trades[t].timestamp.toString())){
                 tradeids.push(trades[t].clientOrderId + trades[t].timestamp.toString());
@@ -132,7 +133,7 @@ let numOrders = 0;
 setTimeout(function(){
 
 getTrades();
-}, 10000)
+}, 14000)
 setInterval(function(){
     getTrades()
 }, 60 * 1001)
@@ -372,6 +373,7 @@ if (!bases.includes(asset)) {
                 btcs[bases[b]] = tickers[t].bid;
             }
             if (t == 'BTCUSD'){
+                btcs2['USDBTC'] = tickers[t].bid
                 btcs2['USD'] = 1 / btcs['BTC']
             }
         }
