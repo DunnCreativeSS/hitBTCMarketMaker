@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 app.set('view engine', 'ejs');
 
-app.listen(process.env.PORT || 8080, function() {});
+app.listen(process.env.PORT || 80, function() {});
 
 app.get('/update', (req, res) => {
 
@@ -104,6 +104,7 @@ async function getTrades(){
     }
 }
 }
+let numOrders = 0;
 setTimeout(function(){
 
 getTrades();
@@ -112,6 +113,8 @@ setInterval(function(){
     getTrades()
 }, 60 * 1001)
 async function doPost(req, res) {
+    numOrders = 0;
+    numOrders  = (await restClient.getMyActiveOrders()).orders.length
     
     total2 = 0;
     let bals2 = {}
@@ -159,7 +162,9 @@ async function doPost(req, res) {
             total: total2,
             btc: btctotal,
             eth: ethtotal,
-            trades2: trades2
+            trades2: trades2,
+            trades: trades2.length,
+            orders: numOrders
         });
 
     } else {
