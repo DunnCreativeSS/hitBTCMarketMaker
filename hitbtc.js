@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 app.set('view engine', 'ejs');
 
-app.listen(process.env.PORT || 80, function() {});
+app.listen(process.env.PORT || 8080, function() {});
 
 app.get('/update', (req, res) => {
 
@@ -113,12 +113,18 @@ async function getTrades(){
                 btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) / btcs2['BTC'])
             }
             else  if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'ETH'){
-                btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) / btcs2['ETH'])
+                console.log(trades[t].symbol)
+        console.log(btcVol)
+        console.log( btcs['ETH'])
+                btcVol += (((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)) * btcs2['ETH']) / btcs2['BTC'])
+           
+        console.log(btcVol)
             }
             else if (trades[t].symbol.substring(trades[t].symbol.length - 3, trades[t].symbol.length) == 'BTC'){
                 btcVol += ((parseFloat(trades[t].execQuantity) * parseFloat(trades[t].execPrice)))
             }
         }
+
 
             if (!tradeids.includes(trades[t].clientOrderId + trades[t].timestamp.toString())){
                 tradeids.push(trades[t].clientOrderId + trades[t].timestamp.toString());
