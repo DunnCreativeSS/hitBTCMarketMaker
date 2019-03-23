@@ -27,7 +27,7 @@
     "underscore": "*"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node hitbtc.js"
   },
   "deprecated": false,
   "description": "Engine for Quoinex noticing skillz",
