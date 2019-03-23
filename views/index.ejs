@@ -220,6 +220,7 @@ The goal of this bot isn't to profit: it's to show off that there would be profi
         var diffbtc = []
         var diffavg = []
         var diffusd = []
+        var refdiff = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://techvoices.club/update?name=2', function(jsondata) {

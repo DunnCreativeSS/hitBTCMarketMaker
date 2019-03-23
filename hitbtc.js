@@ -183,7 +183,7 @@ async function doPost(req, res) {
     
     }
         if (true){
-            let refdiff = 100* (-1 * (1 - (btcs2['BTC'] / btcref)));
+            let refdiff = 100* (-1 * (1 - (btcs['BTC'] / btcref)));
     let usddiff = 100* (-1 * (1 - (total2 / usdstart)));
     btctotal = (((total2 / btcs['BTC'])));
     ethtotal = (((total2 / btcs2['ETH'])));
