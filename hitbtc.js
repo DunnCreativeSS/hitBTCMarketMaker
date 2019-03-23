@@ -114,12 +114,12 @@ setInterval(function(){
 }, 60 * 1001)
 async function doPost(req, res) {
     numOrders = 0;
-    orders  = (await restClient.getMyActiveOrders()).orders
-    numOrders = orders.length
+    let orders2  = (await restClient.getMyActiveOrders()).orders
+    numOrders = orders2.length
     let buyOrders = 0;
     let sellOrders = 0;
-    for (var o in orders){
-        if (orders[o].side == 'buy'){
+    for (var o in orders2){
+        if (orders2[o].side == 'buy'){
             buyOrders++;
         }
         else {
