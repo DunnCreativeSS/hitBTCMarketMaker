@@ -58,7 +58,15 @@ let btctotal = 0;
 let trades2 = []
 let totalbefore = 0;
 let tradeids = []
+let bals3 = {}
 async function getTrades(){
+    bals3 = {}
+    balances = (await restClient.getMyBalance()).balance
+    for (var b in balances) {
+        if (balances[b].cash > 0 || balances[b].reserved > 0){
+        bals3[b] = parseFloat(balances[b].cash) + parseFloat(balances[b].reserved)
+    }
+    }
     let gos = {}
         let avgs = {}
         for (var v in vols) {
@@ -177,7 +185,8 @@ async function doPost(req, res) {
             trades: trades2.length,
             orders: numOrders,
             buyOrders: buyOrders,
-            sellOrders: sellOrders
+            sellOrders: sellOrders,
+            balances: bals3
         });
 
     } else {
